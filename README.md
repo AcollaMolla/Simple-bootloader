@@ -18,7 +18,7 @@ First of all, make sure the storage device is formatted to FAT32. Format to FAT3
 ```
 sudo fdisk -l
 ```
-In my case the path to my storage device is /dev/sdb1. #VERY important that you don't get this wrong since there is a risk of data loss
+In my case the path to my storage device is /dev/sdb1. **VERY important that you don't get this wrong since there is a risk of data loss**
 Unmount the storage device and format it to FAT32 using the following commands:
 ```
 sudo umount /dev/sdb1
