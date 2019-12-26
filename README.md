@@ -32,7 +32,7 @@ sudo dd bs=446 count=1 conv=notrunc if=boot.bin of=/dev/sdb
 We will write directly to the storage device and not to any partition, hence the lack of number after 'sdb'.
 The MBR is 512 bytes in size but we will only write 446 bytes. The reason for this is to save some place for the BPB and other data that is already present in the MBR, otherwise BIOS may refuse to load our bootloader.
 
-To make this code executable we also need to write the last two bytes of boot.bin to the last two bytes of the MBR:
+To make this code executable we also need to write the last two bytes of boot.bin (which is 0x55 and 0xaa) to the last two bytes of the MBR:
 ```
 sudo dd bs=1 count=2 seek=510 skip=510 conv=notrunc if=boot.bin of=/dev/sdb
 ```
