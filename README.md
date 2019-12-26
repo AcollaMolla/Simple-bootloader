@@ -6,13 +6,13 @@ Compile it to a binary using nasm:
 ```
 nasm -f bin boot.asm -o boot.bin
 ```
-#To run the bootloader in a emulator
+**To run the bootloader in a emulator**
 Execute the compiled bootloader using QEMU:
 ```
 qemu-system-i386 boot.bin
 ```
 
-#To run the bootloader on hardware
+**To run the bootloader on hardware**
 Now wee need to write the bootloader to the MBR of an empty storage device, in this case an USB flash memory. We will use dd to write.
 First of all, make sure the storage device is formatted to FAT32. Format to FAT32 using mkfs.vfat. Use fdisk to find the path to your storage device:
 ```
