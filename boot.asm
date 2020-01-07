@@ -63,15 +63,15 @@ print_hello_char:
 halt:
 jmp $
 
-msg: db 'Welcome to my bootloader! OS will boot soon...'
+msg: db 'Welcome to my bootloader! OS will boot soon...', 0xa, 0xd
 
 MSGLEN: EQU ($ - msg)
 
-msg2: db 'Beep!'
+msg2: db 'Beep!', 0xa, 0xd
 
 msg2_len: EQU ($-msg2)
 
-escape_pressed_msg: db 'Escape was pressed!'
+escape_pressed_msg: db 'Escape was pressed!', 0xa, 0xd
 
 escape_pressed_msg_len: EQU ($-escape_pressed_msg)
 
