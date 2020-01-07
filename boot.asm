@@ -31,7 +31,17 @@ read_and_display:
 	int 0x10
 jmp read_and_display
 
-esc_pressed
+esc_pressed:
+	pusha
+	mov cx, escape_pressed_msg_len
+	mov si, escape_pressed_msg
+	mov ah, 0xe
+print_char:
+	mov al, [si]
+	int 0x10
+	inc si
+	loop print_char
+	popa
 	ret
 
 print_hello:
@@ -58,6 +68,10 @@ MSGLEN: EQU ($ - msg)
 msg2: db 'Beep!'
 
 msg2_len: EQU ($-msg2)
+
+escape_pressed_msg: db 'Escape was pressed!'
+
+escape_pressed_msg_len: EQU ($-escape_pressed_msg)
 
 padding: times (510 - ($ - $$)) db 0
 
