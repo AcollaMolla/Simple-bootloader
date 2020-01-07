@@ -25,24 +25,30 @@ beep:
 read_and_display:
 	mov ah, 0
 	int 0x16
-	cmp al, 27
-	jne esc_not_pressed
-	call esc_pressed
-esc_not_pressed:
+	cmp al, 53
+	jne wrong_guess
+	call correct_guess
+wrong_guess:
+	mov cx, wrong_msg_len
+	mov si, wrong_msg
 	mov ah, 0xe
-	int 0x10
-jmp read_and_display
-
-esc_pressed:
-	pusha
-	mov cx, escape_pressed_msg_len
-	mov si, escape_pressed_msg
-	mov ah, 0xe
-print_char:
+print_wrong_guess:
 	mov al, [si]
 	int 0x10
 	inc si
-	loop print_char
+	loop print_wrong_guess
+jmp read_and_display
+
+correct_guess:
+	pusha
+	mov cx, correct_msg_len
+	mov si, correct_msg
+	mov ah, 0xe
+print_correct_guess:
+	mov al, [si]
+	int 0x10
+	inc si
+	loop print_correct_guess
 	popa
 	ret
 
@@ -63,7 +69,7 @@ print_hello_char:
 halt:
 jmp $
 
-msg: db 'Welcome to my bootloader! OS will boot soon...', 0xa, 0xd
+msg: db 'Welcome to my bootloader! OS will boot soon...Guess the secret number!', 0xa, 0xd
 
 MSGLEN: EQU ($ - msg)
 
@@ -71,9 +77,15 @@ msg2: db 'Beep!', 0xa, 0xd
 
 msg2_len: EQU ($-msg2)
 
-escape_pressed_msg: db 'Escape was pressed!', 0xa, 0xd
+correct_msg: db 'Correct!', 0xa, 0xd
 
-escape_pressed_msg_len: EQU ($-escape_pressed_msg)
+correct_msg_len: EQU ($-correct_msg)
+
+wrong_msg: db 'Wrong!', 0xa, 0xd
+
+wrong_msg_len: EQU ($-wrong_msg)
+
+secret_number: db 53
 
 padding: times (510 - ($ - $$)) db 0
 
