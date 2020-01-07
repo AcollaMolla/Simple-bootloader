@@ -27,7 +27,7 @@ read_and_display:
 	int 0x16
 	cmp al, 53
 	jne wrong_guess
-	call correct_guess
+	jmp correct_guess
 wrong_guess:
 	mov cx, wrong_msg_len
 	mov si, wrong_msg
@@ -49,8 +49,7 @@ print_correct_guess:
 	int 0x10
 	inc si
 	loop print_correct_guess
-	popa
-	ret
+	jmp read_and_display
 
 print_hello:
 	pusha
