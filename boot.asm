@@ -25,10 +25,14 @@ beep:
 read_and_display:
 	mov ah, 0
 	int 0x16
+	cmp al, 27
+	call esc_pressed
 	mov ah, 0xe
 	int 0x10
 jmp read_and_display
 
+esc_pressed
+	ret
 
 print_hello:
 	pusha
