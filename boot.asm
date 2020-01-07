@@ -26,7 +26,9 @@ read_and_display:
 	mov ah, 0
 	int 0x16
 	cmp al, 27
+	jne esc_not_pressed
 	call esc_pressed
+esc_not_pressed:
 	mov ah, 0xe
 	int 0x10
 jmp read_and_display
