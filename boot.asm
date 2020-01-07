@@ -25,7 +25,7 @@ beep:
 read_and_display:
 	mov ah, 0
 	int 0x16
-	cmp al, 53
+	cmp al, secret_number
 	jne wrong_guess
 	jmp correct_guess
 wrong_guess:
@@ -84,7 +84,7 @@ wrong_msg: db 'Wrong!', 0xa, 0xd
 
 wrong_msg_len: EQU ($-wrong_msg)
 
-secret_number: db 53
+secret_number: EQU 53
 
 padding: times (510 - ($ - $$)) db 0
 
