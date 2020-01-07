@@ -68,7 +68,7 @@ print_hello_char:
 halt:
 jmp $
 
-msg: db 'Welcome to my bootloader! OS will boot soon...Guess the secret number!', 0xa, 0xd
+msg: db 'Welcome to my bootloader! OS will boot soon...Meanwhile, guess the secret number!', 0xa, 0xd
 
 MSGLEN: EQU ($ - msg)
 
