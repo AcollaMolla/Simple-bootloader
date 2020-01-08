@@ -1,7 +1,9 @@
 mov ax, 0x7c0
 mov ds, ax
 mov ecx, 10
-boot:
+mov ebx, 0x1
+
+print_greeting:
 	mov cx, MSGLEN
 	mov si, msg
 	mov ah, 0xe
@@ -17,10 +19,19 @@ beep:
 	mov ah, 0xe
 	mov al, 0x7
 	int 0x10
-	call print_hello
-	sub ecx, 0x1
-	or ecx, ecx
-	jnz beep
+	cmp ebx, 0x1
+	je print_debug
+	jmp no_debug
+	print_debug:
+		sub ecx, 0x1
+		call print_msg2
+		or ecx, ecx
+		jz read_and_display
+		jnz beep
+	no_debug:
+		sub ecx, 0x1
+		or ecx, ecx
+		jnz beep
 
 read_and_display:
 	mov ah, 0
@@ -51,17 +62,17 @@ print_correct_guess:
 	loop print_correct_guess
 	jmp read_and_display
 
-print_hello:
+print_msg2:
 	pusha
 	mov cx, msg2_len
 	mov si, msg2
 	mov ah, 0xe
 
-print_hello_char:
+put_char_msg2:
 	mov al, [si]
 	int 0x10
 	inc si
-	loop print_hello_char
+	loop put_char_msg2
 	popa
 	ret
 
