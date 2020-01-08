@@ -2,9 +2,9 @@ mov ax, 0x7c0
 mov ds, ax
 mov ecx, 10
 boot:
-mov cx, MSGLEN
-mov si, msg
-mov ah, 0xe
+	mov cx, MSGLEN
+	mov si, msg
+	mov ah, 0xe
 putchar:
 	mov al, [si]
 	int 0x10
@@ -66,7 +66,7 @@ print_hello_char:
 	ret
 
 halt:
-jmp $
+	jmp $
 
 msg: db 'Welcome to my bootloader! OS will boot soon...Meanwhile, guess the secret number!', 0xa, 0xd
 
